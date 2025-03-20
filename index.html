@@ -88,24 +88,14 @@
     <div class="cmd-box">
         <p class="cmd-text">C:\Users\Guest> Welcome to the CMD UI</p>
         <p class="cmd-text">Choose a command:</p>
-        <button class="cmd-button" onclick="showMessage('dir')">dir</button>
-        <button class="cmd-button" onclick="showMessage('ipconfig')">ipconfig</button>
-        <p class="cmd-text" id="output"></p>
+        <button class="cmd-button">Connect Wallet</button>
+        <button class="cmd-button">GM</button>
     </div>
 
     <script>
         function toggleMenu() {
             let menu = document.getElementById("navMenu");
             menu.style.display = (menu.style.display === "block") ? "none" : "block";
-        }
-
-        function showMessage(command) {
-            let output = document.getElementById("output");
-            if (command === "dir") {
-                output.innerHTML = "Volume in drive C is SYSTEM<br>Directory of C:\\Users\\Guest<br><br>File1.txt<br>File2.exe";
-            } else if (command === "ipconfig") {
-                output.innerHTML = "IPv4 Address: 192.168.1.100<br>Subnet Mask: 255.255.255.0<br>Default Gateway: 192.168.1.1";
-            }
         }
     </script>
 
