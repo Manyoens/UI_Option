@@ -10,6 +10,7 @@
             background-color: black;
             color: #00FF00;
             padding: 20px;
+            margin: 0;
         }
         .cmd-box {
             border: 2px solid #00FF00;
@@ -21,24 +22,91 @@
         .cmd-text {
             font-size: 16px;
         }
-        .cmd-input {
+        .cmd-button {
+            display: block;
             width: 100%;
             background: black;
             color: #00FF00;
-            border: none;
+            border: 1px solid #00FF00;
             font-family: "Courier New", monospace;
             font-size: 16px;
-            outline: none;
+            padding: 5px;
+            margin-top: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .cmd-button:hover {
+            background: #00AA00;
+        }
+        /* Navbar */
+        .nav-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: black;
+            border: 1px solid #00FF00;
+            color: #00FF00;
+            font-size: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .nav-menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            background: black;
+            border: 1px solid #00FF00;
+            padding: 10px;
+            width: 150px;
+        }
+        .nav-menu a {
+            color: #00FF00;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .nav-menu a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
+    <!-- Hamburger Menu -->
+    <button class="nav-button" onclick="toggleMenu()">☰</button>
+    <div class="nav-menu" id="navMenu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Settings</a>
+    </div>
+
     <div class="cmd-box">
         <p class="cmd-text">C:\Users\Guest> Welcome to the CMD UI</p>
-        <p class="cmd-text">Type a command below:</p>
-        <input type="text" class="cmd-input" placeholder="C:\Users\Guest>">
+        <p class="cmd-text">Choose a command:</p>
+        <button class="cmd-button" onclick="showMessage('dir')">dir</button>
+        <button class="cmd-button" onclick="showMessage('ipconfig')">ipconfig</button>
+        <button class="cmd-button" onclick="showMessage('ping 127.0.0.1')">ping 127.0.0.1</button>
+        <p class="cmd-text" id="output"></p>
     </div>
+
+    <script>
+        function toggleMenu() {
+            let menu = document.getElementById("navMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        function showMessage(command) {
+            let output = document.getElementById("output");
+            if (command === "dir") {
+                output.innerHTML = "Volume in drive C is SYSTEM<br>Directory of C:\\Users\\Guest<br><br>File1.txt<br>File2.exe";
+            } else if (command === "ipconfig") {
+                output.innerHTML = "IPv4 Address: 192.168.1.100<br>Subnet Mask: 255.255.255.0<br>Default Gateway: 192.168.1.1";
+            } else if (command === "ping 127.0.0.1") {
+                output.innerHTML = "Pinging 127.0.0.1 with 32 bytes of data:<br>Reply from 127.0.0.1: bytes=32 time<1ms TTL=128";
+            }
+        }
+    </script>
 
 </body>
 </html>
