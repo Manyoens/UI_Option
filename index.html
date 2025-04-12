@@ -87,26 +87,38 @@
         <button id="connectWallet" class="cmd-button">Connect Wallet</button>
     </div>
     <script>
+        let isConnected = false; // Track wallet connection state
+
         function toggleMenu() {
             let menu = document.getElementById("navMenu");
             menu.style.display = (menu.style.display === "block") ? "none" : "block";
         }
 
         document.getElementById("connectWallet").addEventListener("click", function() {
-            if (typeof window.ethereum !== 'undefined') {
-                // Prompt user to connect to MetaMask
-                window.ethereum.request({ method: 'eth_requestAccounts' })
-                    .then(accounts => {
-                        // Change the text once wallet is connected
-                        document.getElementById("cmdText").innerText = "C:\\Users\\Guest> Wallet Connected";
-                        alert("Wallet connected: " + accounts[0]);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        alert("Failed to connect wallet.");
-                    });
+            if (!isConnected) {
+                // If not connected, try connecting the wallet
+                if (typeof window.ethereum !== 'undefined') {
+                    // Prompt user to connect to MetaMask
+                    window.ethereum.request({ method: 'eth_requestAccounts' })
+                        .then(accounts => {
+                            isConnected = true;
+                            document.getElementById("cmdText").innerText = "C:\\Users\\Guest> Wallet Connected";
+                            document.getElementById("connectWallet").innerText = "Disconnect"; // Change button text
+                            alert("Wallet connected: " + accounts[0]);
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert("Failed to connect wallet.");
+                        });
+                } else {
+                    alert("MetaMask is not installed.");
+                }
             } else {
-                alert("MetaMask is not installed.");
+                // If connected, disconnect the wallet
+                isConnected = false;
+                document.getElementById("cmdText").innerText = "C:\\Users\\Guest> Welcome to the CMD UI";
+                document.getElementById("connectWallet").innerText = "Connect Wallet"; // Change button text back
+                alert("Wallet disconnected.");
             }
         });
     </script>
