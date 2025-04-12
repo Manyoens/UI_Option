@@ -93,7 +93,19 @@
         }
 
         document.getElementById("connectWallet").addEventListener("click", function() {
-            alert("Wallet connection functionality removed.");
+            if (typeof window.ethereum !== 'undefined') {
+                // Prompt user to connect to MetaMask
+                window.ethereum.request({ method: 'eth_requestAccounts' })
+                    .then(accounts => {
+                        alert("Wallet connected: " + accounts[0]);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Failed to connect wallet.");
+                    });
+            } else {
+                alert("MetaMask is not installed.");
+            }
         });
     </script>
 </body>
