@@ -82,7 +82,7 @@
         <a href="#">Settings</a>
     </div>
     <div class="cmd-box">
-        <p class="cmd-text">C:\Users\Guest> Welcome to the CMD UI</p>
+        <p class="cmd-text" id="cmdText">C:\Users\Guest> Welcome to the CMD UI</p>
         <p class="cmd-text">Choose a command:</p>
         <button id="connectWallet" class="cmd-button">Connect Wallet</button>
     </div>
@@ -97,6 +97,8 @@
                 // Prompt user to connect to MetaMask
                 window.ethereum.request({ method: 'eth_requestAccounts' })
                     .then(accounts => {
+                        // Change the text once wallet is connected
+                        document.getElementById("cmdText").innerText = "C:\\Users\\Guest> Wallet Connected";
                         alert("Wallet connected: " + accounts[0]);
                     })
                     .catch(error => {
